@@ -15,7 +15,6 @@ def index():
     return redirect(url_for('login_user'))
 
 
-
 def token_required(f):
     @wraps(f)
     def decorator(*args, **kwargs):
@@ -74,11 +73,14 @@ def login_user():
             return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})
 
         user = User.query.filter_by(username=request.form["username"]).first()
-        print(user.password)
 
-        if check_password_hash(user.password, request.form["password"]) and user.username == request.form["username"]:
-            token = jwt.encode({'public_id': user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
-            return render_template('home.html', title='Sign Up')
+        if user:
+            if check_password_hash(user.password, request.form["password"]) and user.username == request.form["username"]:
+                token = jwt.encode({'public_id': user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+                return render_template('home.html', title='Sign Up')
+
+            else:
+                return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
 
         else:
             return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})

@@ -1,14 +1,5 @@
 # COVID0
-This is for the upcoming HCL hackathon
+A one-stop-shop web app for details about what measures are being taken by businesses to tackle COVID-19 induced health hazards. Users can verify and validate these by registering and casting their positive or negative vote, as well as, leave a review. This is for the upcoming HCL hackathon.
 
 ## Requirements:
-The following are the required dependencies:
-1) Flask
-2) datetime
-3) uuid
-4) Flask-SQLAlchemy
-5) PyJWT
-
-To install them simply run :
-
-#### pip install -r requirements.txt
+To install dependencies, simply run : `pip install -r requirements.txt`

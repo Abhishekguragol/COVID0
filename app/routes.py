@@ -8,7 +8,7 @@ import jwt
 import datetime
 from functools import wraps
 
-# Home page
+# Landing page
 @app.route('/')
 @app.route('/index')
 def index():
@@ -54,8 +54,8 @@ def signup_user():
         try:
             db.session.add(new_user)
             db.session.commit()
-            #return redirect(url_for('index'))
-            return render_template('home.html', title='Sign Up')
+            return redirect(url_for('login_user'))
+            #return render_template('home.html', title='Sign Up')
 
         except:
             return jsonify({'message': 'Unsuccessful registration'})
@@ -77,7 +77,7 @@ def login_user():
         if user:
             if check_password_hash(user.password, request.form["password"]) and user.username == request.form["username"]:
                 token = jwt.encode({'public_id': user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
-                return render_template('home.html', title='Sign Up')
+                return redirect(url_for('home'))
 
             else:
                 return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
@@ -86,6 +86,12 @@ def login_user():
             return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
 
     return render_template('login.html', title='Sign Up')
+
+# Home page upon login for user view
+@app.route('/home', methods=['GET', 'POST'])
+def home_user():
+    return render_template('cardindex.html', title='You logged in woo')
+
 
 # To list all users (use for testing)
 @app.route('/all_users', methods=['GET'])

@@ -1,0 +1,42 @@
+body {
+    background: linear-gradient(#7f7fd5,#86a8e7,#91eae4)
+}
+.card-index { 
+    padding-top: 50px;
+}
+
+.shop-card {
+    background: white;
+    border-radius: 10px;
+    opacity: 0.8;
+    border: none;
+    
+    -webkit-box-shadow: 0 5px 6px -6px #777;
+    -moz-box-shadow: 0 5px 6px -6px #777;
+    box-shadow: 0 5px 6px -6px #777;
+}
+
+.shop-card .card-body {
+    min-height: 140px;
+}
+
+i.good { 
+    color:green;
+}
+
+i.bad {
+    color: red;
+}
+
+.button {
+    width: 150px;
+    padding: 5px 20px 5px 20px;
+    color: #474785;
+    border: #474785 solid 1px;
+    border-radius: 5px;
+    background: transparent;
+}
+.button:hover {
+    background: #474785;
+    color: white;
+}

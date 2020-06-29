@@ -77,7 +77,7 @@ def login_user():
         if user:
             if check_password_hash(user.password, request.form["password"]) and user.username == request.form["username"]:
                 token = jwt.encode({'public_id': user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
-                return redirect(url_for('home'))
+                return redirect(url_for('home_user'))
 
             else:
                 return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
@@ -87,10 +87,16 @@ def login_user():
 
     return render_template('login.html', title='Sign Up')
 
-# Home page upon login for user view
+# Home page upon login for user view -> still static, design the db and pull businesses data to display
 @app.route('/home', methods=['GET', 'POST'])
 def home_user():
     return render_template('cardindex.html', title='You logged in woo')
+
+
+# Business sign up page static render
+@app.route('/business_login', methods=['GET', 'POST'])
+def business_login():
+    return render_template('businessAcc.html', title='Business sign up page')
 
 
 # To list all users (use for testing)

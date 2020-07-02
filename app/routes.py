@@ -1,5 +1,5 @@
 from app import app
-from app.models import User
+from app.models import User, Business, BusinessDetails
 from app import db
 from flask import request, jsonify, make_response, render_template, redirect,url_for
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -99,10 +99,65 @@ def home_user():
     return render_template('cardindex.html', title='You logged in woo')
 
 
-# Business sign up page static render
+# Business sign up page
+@app.route('/business_signup', methods=['GET', 'POST'])
+def business_signup():
+    print("In Business register")
+    if request.method == 'POST':
+        print("Register Sub")
+        data = request.get_json()
+        print(request.form)
+
+        hashed_password = generate_password_hash(request.form['password'], method='sha256')
+
+        new_user = Business(public_id=str(uuid.uuid4()), name=request.form['name'], email=request.form['email'], username=request.form['username'], password=hashed_password, location=request.form['location'])
+
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+            print(new_user)
+            return redirect(url_for('business_login'))
+            #return render_template('home.html', title='Sign Up')
+
+        except:
+            return jsonify({'message': 'Unsuccessful registration'})
+
+#    return render_template('signup.html', title='Sign Up')
+    return render_template('business_register.html', title='Business sign up page')
+
+
+# Business sign up page
 @app.route('/business_login', methods=['GET', 'POST'])
 def business_login():
-    return render_template('businessAcc.html', title='Business sign up page')
+    print("In Business Login")
+    if request.method == 'POST':
+        #auth = request.authorization
+
+        if not request.form["username"] or not request.form["password"]:
+            return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})
+
+        user = Business.query.filter_by(username=request.form["username"]).first()
+
+        if user:
+            if check_password_hash(user.password, request.form["password"]) and user.username == request.form["username"]:
+                token = jwt.encode({'public_id': user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+                #login_user(user)
+                return redirect(url_for('home_business'))
+
+            else:
+                return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
+
+        else:
+            return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
+
+    return render_template('business_login.html', title='Business Log in')
+
+
+# Home page upon login for business view -> still static, design the db and pull businesses data to display
+@app.route('/home_business', methods=['GET', 'POST'])
+def home_business():
+    return render_template('business_home.html', title='You logged in woo')
+
 
 
 # To list all users (use for testing)

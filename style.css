@@ -1,0 +1,130 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(39, 39, 39); 
+}
+
+.main_content { margin-top: 50px; }
+/* .head { 
+    background: turquoise; 
+    padding-top: 20px;
+    padding-bottom: 20px;
+} */
+
+#business_logo {
+    width: 150px;
+    height: 150px;
+    background: rgb(160, 160, 160);
+    border-radius: 50%;
+}
+
+#business_tags span {
+    margin-right: 20px;
+    padding: 5px 8px 5px 8px;
+}
+
+.head_review {
+    padding: 10px 15px 15px 15px;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 2px 2px 8px rgb(230, 230, 230), -2px -2px 8px rgb(230, 230, 230);
+    text-align: center;
+}
+
+.fa-star { 
+    color: rgb(160, 160, 160);
+    padding: 0px 3px 0px 3px; 
+}
+.active { color: goldenrod; }
+
+.about {
+    margin-top: 50px;
+}
+.about button {
+    margin-left: 20px;
+}
+
+.gallery { margin-top: 50px; }
+
+.review_image {
+    width: 100%;
+    background: rgb(160, 160, 160);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: 0.8s;
+}
+#main_img { height: 310px; }
+#smaller_img {height: 150px; }
+#more_images {
+    margin-top: 10px;
+    float: right;
+}
+
+.review_image:hover {
+    transform: scale(1.04);
+    transition: 0.8s;
+}
+
+.rules { margin-top: 50px; }
+.rules h5 { text-align: center; }
+.rules table { margin-top: 30px; width: 100%; }
+
+.government_rules_table {
+    width: 100%;
+    height: 300px;
+    padding: 20px;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 2px 2px 8px rgb(230, 230, 230), -2px -2px 8px rgb(230, 230, 230);
+}
+
+.added_safety_table {
+    width: 100%;
+    height: 300px;    
+    padding: 20px;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 2px 2px 8px rgb(230, 230, 230), -2px -2px 8px rgb(230, 230, 230);
+}
+
+.rules table tr { border-bottom: rgb(230, 230, 230) solid 1px; }
+.rules table td { padding: 15px 5px 15px 5px; }
+.rules table .adherence { 
+    width: 20%; 
+    text-align: center; 
+}
+.rules table .rule { width: 60%; }
+.rules table .verified { width: 20%; }
+.fa-check { 
+    color: green; 
+    opacity: 0.8;
+}
+.fa-close { 
+    color: red; 
+    opacity: 0.8;
+}
+
+.rules #more_govReg, .rules #more_addSafe { text-align: center; }
+
+.reviews {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+#customer_reviews {
+    margin-top: 40px;
+    height: auto;
+    width: 100%;
+}
+#review {
+    padding: 10px;
+    border-bottom: rgb(230, 230, 230) solid 1px;
+}
+
+#reviewer_name {
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding-right: 15px;
+}
+#review_dated {
+    color: rgb(80, 80, 80);
+    padding-left: 15px;
+}

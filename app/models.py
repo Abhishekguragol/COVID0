@@ -33,6 +33,7 @@ class Business(db.Model):
     def __repr__(self):
         return '<Business Name {}>'.format(self.name)
 
+
 class BusinessDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     public_id = db.Column(db.Integer)   ## this public_id must be same as Business class

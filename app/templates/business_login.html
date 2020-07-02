@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COVID0</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='signup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -15,30 +15,14 @@
 </head>
 <body>
     <div class="container">
-        <div class="signUpPanel">
-            <div class="col-12 signUpCol">
-                <h2 style="text-align: center">Sign-up</h2>
+        <div class="loginPanel">
+            <div class="col-12 loginCol">
+                <h2 style="text-align: center">Business Login</h2>
                 <br><br>
                 <form method="POST">
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="text" class="form-control" name="name" placeholder="Full name">
-                        </div>
-                        <div class="col-6">
-                            <input type="email" class="form-control" name="email" placeholder="Email address">
-                        </div>
-                    </div>
+                    <input type="text" class="form-control" name="username" placeholder="Username">
                     <br>
-                    <input type="text" class="form-control" name="username" placeholder="Account username">
-                    <br>
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="password" class="form-control" name="password" placeholder="Password">
-                        </div>
-                        <div class="col-6">
-                            <input type="password" class="form-control" id="repwd" placeholder="Confirm password">
-                        </div>
-                    </div>
+                    <input type="password" class="form-control" name="password" placeholder="Password">
                     <br>
                     <div style="text-align: center; margin-bottom: 25px;">
                         <button class="button" type="submit">Submit</button>
@@ -57,9 +41,9 @@
                 </button>
 
                 <br><br><br>
-                <p style="text-align: center">Sign up for a <a href="{{ url_for('business_signup') }}">Business account</a>.</p>
+                <p style="text-align: center">New here? <a href="{{ url_for('business_signup') }}">Sign up</a>!</p>
             </div>
         </div>
     </div>
 </body>
-</html>
+<html>

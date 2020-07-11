@@ -104,6 +104,7 @@ def login_for_user():
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home_user():
+    # rendered from template, revert to API is there's time
     d = {}
     business = Business.query.all()
     business_details = BusinessDetails.query.all()
@@ -157,7 +158,7 @@ def business_signup():
         except:
             return jsonify({'message': 'Unsuccessful registration'})
 
-#    return render_template('signup.html', title='Sign Up')
+#   return render_template('signup.html', title='Sign Up')
     return render_template('business_register.html', title='Business sign up page')
 
 
@@ -189,16 +190,43 @@ def business_login():
 
 
 # Home page upon login for business view -> still static, design the db and pull businesses data to display
-@app.route('/home_business', methods=['GET', 'POST'])
-def home_business():
-    return render_template('business_home.html', title='You logged in woo')
+@app.route('/home_business/<public_id>', methods=['GET', 'POST'])
+def home_business(public_id):
+    biz = Business.query.filter_by(public_id=public_id).first()
+    bizdetails = BusinessDetails.query.filter_by(public_id=public_id).first()
+    comment = Comment.query.filter_by(business_public_id=public_id)
+
+    ### passed queried data from db about business, its details and comments    
+    return render_template('business_home_temp.html', title='You logged in woo', biz=biz, bizdetails=bizdetails, comment=comment)
+
+
+
+# COVID Guidelines indexing based on search string
+@app.route('/guidelines', methods=['GET', 'POST'])
+def guidelines():
+    print("In guidelines")
+    if request.method == 'POST':
+        #auth = request.authorization
+        query = request.form["query"]
+
+        if not query:
+            return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})
+
+
+        from covid_guidelines import covid_guidelines
+        response = covid_guidelines.find_docs(query)
+        print(response)
+        return jsonify({'json': response})
+
+             
+    return render_template('guidelines.html', title='GUIDELINES')
+
 
 
 
 # To list all users (use for testing)
 @app.route('/all_users', methods=['GET'])
 def get_all_users():
-
     users = User.query.all()
     #user1 = User.query.filter_by(username="sidd").first()
     result = []

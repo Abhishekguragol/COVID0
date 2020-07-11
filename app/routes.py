@@ -1,5 +1,5 @@
 from app import app
-from app.models import User, Business, BusinessDetails
+from app.models import User, Business, BusinessDetails, Comment
 from app import db
 from flask import request, jsonify, make_response, render_template, redirect,url_for
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -8,6 +8,14 @@ import jwt
 import datetime
 from functools import wraps
 from flask_login import current_user, login_user, login_required
+
+## USER_VIEW
+## Test username: tester
+## Test password: tester123
+
+## BUSINESS_VIEW
+## Test username: biztester
+## Test password: biztester123
 
 # Landing page
 @app.route('/')
@@ -96,7 +104,24 @@ def login_for_user():
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home_user():
-    return render_template('cardindex.html', title='You logged in woo')
+    d = {}
+    business = Business.query.all()
+    business_details = BusinessDetails.query.all()
+    
+    for i in business:
+        #print(i.public_id)
+        for j in business_details:
+            #print(j.public_id)
+            if i.public_id == j.public_id:
+                d[i.public_id] = {} 
+                d[i.public_id]['rule1'] = j.rule1
+                d[i.public_id]['rule2'] = j.rule2
+                d[i.public_id]['rule3'] = j.rule3 
+                d[i.public_id]['name'] = i.name    
+    
+    print(d)
+    
+    return render_template('cardindex_temp.html', title='You logged in woo', d=d)
 
 
 # Business sign up page
@@ -106,17 +131,27 @@ def business_signup():
     if request.method == 'POST':
         print("Register Sub")
         data = request.get_json()
+        print("REQUEST data:")
         print(request.form)
 
         hashed_password = generate_password_hash(request.form['password'], method='sha256')
 
-        new_user = Business(public_id=str(uuid.uuid4()), name=request.form['name'], email=request.form['email'], username=request.form['username'], password=hashed_password, location=request.form['location'])
+        num = str(uuid.uuid4())
+
+        new_user = Business(public_id=num, name=request.form['name'], email=request.form['email'], username=request.form['username'], password=hashed_password, location=request.form['location'])
+        new_user_1 = BusinessDetails(public_id=num, verifier = False, rule1 = False, rule2 = False, rule3 = False, adnl_rule = "adnl rule")
 
         try:
             db.session.add(new_user)
             db.session.commit()
             print(new_user)
+
+            db.session.add(new_user_1)
+            db.session.commit()
+            print(new_user_1)
+
             return redirect(url_for('business_login'))
+
             #return render_template('home.html', title='Sign Up')
 
         except:

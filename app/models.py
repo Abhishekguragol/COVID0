@@ -46,3 +46,14 @@ class BusinessDetails(db.Model):
 
     def __repr__(self):
         return '<Business details ID {}>'.format(self.public_id)
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_public_id = db.Column(db.Integer)   ## this public_id must be same as Business class
+    business_public_id = db.Column(db.Integer)
+    text = db.Column(db.String(160))
+    rating = db.Column(db.Integer)    
+
+
+    def __repr__(self):
+        return '<Business details ID {}>'.format(self.public_id)

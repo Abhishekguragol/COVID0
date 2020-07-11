@@ -5,23 +5,18 @@ import os.path
 import os
 from tika import parser
 
-def create_index_folder():
+
+def add_all_docs():
     if not os.path.exists("./indexdir"):
         os.mkdir("./indexdir")
 
     schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT(stored = True), abstract = TEXT(stored = True))
 
     ix = index.create_in("./indexdir", schema)
-    
-    return ix
 
-# Indexing the docs
-
-def add_all_docs():
     if not os.path.exists('pdfs'):
         raise Exception('All the PDFs should be in folder named "pdfs"')
 
-    ix = create_index_folder()
     docs = os.listdir('pdfs')
     for doc in docs:
         writer = ix.writer()
@@ -37,7 +32,8 @@ def add_all_docs():
         writer.commit()
 
 def add_single_doc(doc_path,title):
-    ix = create_index_folder()
+
+    ix = index.open_dir("./indexdir")
     writer = ix.writer()
     file = doc_path
     # Parse data from file
@@ -51,8 +47,8 @@ def add_single_doc(doc_path,title):
     writer.commit()
 
 def find_docs(key_string):
+    ix = index.open_dir("./indexdir")
     return_dict = {}
-    ix = create_index_folder()
     with ix.searcher() as searcher:
         query = QueryParser("content", ix.schema, group=OrGroup).parse(key_string)
         results = searcher.search(query, terms=True)

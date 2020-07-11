@@ -27,7 +27,7 @@
 
             <div class="col-sm">
                 <div class="card shop-card">
-                    <img src="https://picsum.photos/400/200/?random=1" class="card-img-top"/>
+                    <a href="{{ url_for('home_business', public_id=j) }}"><img src="https://picsum.photos/400/200/?random=1" class="card-img-top"/></a>
                     <div class="card-body">
                         <h5 class="card-title">{{ d[j]['name'] }}</h5>
                         <p>

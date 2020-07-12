@@ -16,53 +16,52 @@
 </head>
 <body>
     <div class="container">
-        {% set index = 0 %}
-        {% set index1 = 2 %}
         
         
         {% for j in d %}
-            {% if index % 3 == 0 %}
-            <div class="row card-index">
-            {% endif %}
-
-            <div class="col-sm">
-                <div class="card shop-card">
-                    <a href="{{ url_for('home_business', public_id=j) }}"><img src="https://picsum.photos/400/200/?random=1" class="card-img-top"/></a>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ d[j]['name'] }}</h5>
-                        <p>
-                            {% if d[j]['rule1'] %}
-                                <i class="fas fa-head-side-mask good"></i> Compulsory Mask
-                                <br>
-                            {% else %}
-                                <i class="fas fa-head-side-mask bad"></i> Compulsory Mask
-                                <br>
-                            {% endif %}
-
-                            {% if d[j]['rule2'] %}
-                                <i class="fas fa-hand-sparkles good"></i> Hand Sanitizer 
-                                <br>
-                            {% else %}
-                                <i class="fas fa-hand-sparkles bad"></i> Hand Sanitizer
-                                <br>
-                            {% endif %}
-
-                            {% if d[j]['rule3'] %}
-                                <i class="fas fa-hand-stop-o good"></i> Gloves compulsory 
-                                <br>
-                            {% else %}
-                                <i class="fas fa-hand-stop-o bad"></i> Gloves compulsory 
-                                <br>
-                            {% endif %}
-
-                        </p>
-                    </div>
+            {% if loop.index != 1 and loop.index is divisibleby(4) %}
                 </div>
-            </div>
-            
-            {% if index % 3 == 0 %}
-            </div>
+                <div class="row card-index">
             {% endif %}
+            {% if loop.index == 1 %}
+                <div class="row card-index">
+            {% endif %}
+
+                    <div class="col-sm">
+                        <div class="card shop-card">
+                            <a href="{{ url_for('home_business', public_id=j) }}"><img src="https://picsum.photos/400/200/?random={{ loop.index }}" class="card-img-top"/></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ d[j]['name'] }}</h5>
+                                <p>
+                                    {% if d[j]['rule1'] %}
+                                        <i class="fas fa-head-side-mask good"></i> Compulsory Mask
+                                        <br>
+                                    {% else %}
+                                        <i class="fas fa-head-side-mask bad"></i> Compulsory Mask
+                                        <br>
+                                    {% endif %}
+
+                                    {% if d[j]['rule2'] %}
+                                        <i class="fas fa-hand-sparkles good"></i> Hand Sanitizer 
+                                        <br>
+                                    {% else %}
+                                        <i class="fas fa-hand-sparkles bad"></i> Hand Sanitizer
+                                        <br>
+                                    {% endif %}
+
+                                    {% if d[j]['rule3'] %}
+                                        <i class="fas fa-hand-stop-o good"></i> Gloves compulsory 
+                                        <br>
+                                    {% else %}
+                                        <i class="fas fa-hand-stop-o bad"></i> Gloves compulsory 
+                                        <br>
+                                    {% endif %}
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
         {% endfor %}
     </div>
 </body>

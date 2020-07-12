@@ -49,8 +49,8 @@ class BusinessDetails(db.Model):
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_public_id = db.Column(db.Integer)   ## this public_id must be same as Business class
-    business_public_id = db.Column(db.Integer)
+    user_public_id = db.Column(db.Integer)   ## this public_id must be same as in User class
+    business_public_id = db.Column(db.Integer)   ## this public_id must be same as in sBusiness class
     text = db.Column(db.String(160))
     rating = db.Column(db.Integer)    
 

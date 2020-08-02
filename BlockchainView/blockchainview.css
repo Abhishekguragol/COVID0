@@ -1,0 +1,19 @@
+body {
+    background: white;
+}
+
+.blockchain-view {
+    margin-top: 0px;
+}
+
+.product-form {
+    margin-top: 80px;
+    background: white;
+    border-radius: 10px;
+    opacity: 0.8;
+    border: none;
+    
+    -webkit-box-shadow: 0 5px 6px -6px #777;
+    -moz-box-shadow: 0 5px 6px -6px #777;
+    box-shadow: 0 5px 20px -10px #777;
+}

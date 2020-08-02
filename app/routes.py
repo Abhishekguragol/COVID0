@@ -178,7 +178,7 @@ def business_login():
             if check_password_hash(user.password, request.form["password"]) and user.username == request.form["username"]:
                 token = jwt.encode({'public_id': user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
                 #login_user(user)
-                return redirect(url_for('home_business'))
+                return redirect(url_for('home_business', public_id = user.public_id))
 
             else:
                 return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
